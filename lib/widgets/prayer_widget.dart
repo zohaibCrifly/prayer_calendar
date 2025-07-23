@@ -7,15 +7,18 @@ import '../providers/widget_config_provider.dart';
 import 'prayer_widget_small.dart';
 import 'prayer_widget_medium.dart';
 import 'prayer_widget_large.dart';
+import 'responsive_prayer_widget.dart';
 
 class PrayerWidget extends StatelessWidget {
   final bool isHomeScreenWidget;
+  final bool isResponsive;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
 
   const PrayerWidget({
     super.key,
     this.isHomeScreenWidget = false,
+    this.isResponsive = false,
     this.onTap,
     this.onLongPress,
   });
@@ -24,19 +27,28 @@ class PrayerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<PrayerTimesProvider, WidgetConfigProvider>(
       builder: (context, prayerProvider, configProvider, child) {
-        if (prayerProvider.isLoading && prayerProvider.currentPrayerTimes == null) {
+        if (prayerProvider.isLoading &&
+            prayerProvider.currentPrayerTimes == null) {
           return _buildLoadingWidget(configProvider.config);
         }
 
-        if (prayerProvider.error != null && prayerProvider.currentPrayerTimes == null) {
-          return _buildErrorWidget(configProvider.config, prayerProvider.error!);
+        if (prayerProvider.error != null &&
+            prayerProvider.currentPrayerTimes == null) {
+          return _buildErrorWidget(
+            configProvider.config,
+            prayerProvider.error!,
+          );
         }
 
-        return _buildPrayerWidget(
-          context,
-          prayerProvider,
-          configProvider,
-        );
+        if (isResponsive) {
+          return ResponsivePrayerWidget(
+            prayerTimes: prayerProvider.currentPrayerTimes,
+            location:
+                prayerProvider.currentLocation?.city ?? 'Current Location',
+          );
+        }
+
+        return _buildPrayerWidget(context, prayerProvider, configProvider);
       },
     );
   }
@@ -74,11 +86,7 @@ class PrayerWidget extends StatelessWidget {
       return widget;
     }
 
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.all(8),
-      child: widget,
-    );
+    return Card(elevation: 4, margin: const EdgeInsets.all(8), child: widget);
   }
 
   Widget _buildSizedWidget(
@@ -157,11 +165,7 @@ class PrayerWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.error_outline,
-                color: Colors.white,
-                size: 32,
-              ),
+              const Icon(Icons.error_outline, color: Colors.white, size: 32),
               const SizedBox(height: 8),
               Text(
                 'Error',
@@ -174,10 +178,7 @@ class PrayerWidget extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 error,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 10,
-                ),
+                style: const TextStyle(color: Colors.white70, fontSize: 10),
                 textAlign: TextAlign.center,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,

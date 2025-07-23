@@ -5,8 +5,8 @@ import '../models/location.dart';
 import '../models/widget_config.dart';
 
 class HomeWidgetService {
-  static const String _androidWidgetName = 'PrayerWidgetProvider';
-  static const String _iOSWidgetName = 'PrayerWidget';
+  static const String _androidWidgetName = 'PrayerTimesWidgetProvider';
+  static const String _iOSWidgetName = 'PrayerTimesWidget';
 
   /// Initialize home widget
   static Future<void> initialize() async {

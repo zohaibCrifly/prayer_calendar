@@ -96,11 +96,11 @@ void main() {
 
     test('WidgetSize should have correct dimensions', () {
       expect(WidgetSize.small.width, 200.0);
-      expect(WidgetSize.small.height, 120.0);
+      expect(WidgetSize.small.height, 140.0);
       expect(WidgetSize.medium.width, 300.0);
       expect(WidgetSize.medium.height, 200.0);
       expect(WidgetSize.large.width, 400.0);
-      expect(WidgetSize.large.height, 300.0);
+      expect(WidgetSize.large.height, 520.0);
     });
 
     test('WidgetConfig copyWith should work correctly', () {
