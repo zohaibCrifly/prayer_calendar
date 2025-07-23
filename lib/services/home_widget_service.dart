@@ -92,7 +92,6 @@ class HomeWidgetService {
 
       // Widget configuration
       'showArabicNames': config.showArabicNames.toString(),
-      'showHijriDate': config.showHijriDate.toString(),
       'showCountdown': config.showNextPrayerCountdown.toString(),
     };
   }
@@ -127,12 +126,6 @@ class HomeWidgetService {
     ];
 
     return '${date.day} ${months[date.month - 1]} ${date.year}';
-  }
-
-  /// Get Hijri date (placeholder)
-  static String _getHijriDate() {
-    // This is a placeholder. In a real app, you would calculate the Hijri date
-    return '12 Ramadan 1445';
   }
 
   /// Register widget update callback
@@ -215,7 +208,6 @@ class HomeWidgetService {
         'widget_size',
         'theme',
         'show_arabic_names',
-        'show_hijri_date',
         'show_countdown',
         'fajr_time',
         'sunrise_time',
@@ -237,7 +229,6 @@ class HomeWidgetService {
         'next_prayer_time',
         'time_to_next_prayer',
         'current_date',
-        'hijri_date',
         'max_prayers_to_show',
         'widget_width',
         'widget_height',

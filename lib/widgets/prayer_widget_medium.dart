@@ -84,16 +84,6 @@ class PrayerWidgetMedium extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
-              if (configProvider.showHijriDate) ...[
-                const SizedBox(height: 2),
-                Text(
-                  _getHijriDate(),
-                  style: TextStyle(
-                    color: _getThemeSecondaryTextColor(config.theme),
-                    fontSize: 10,
-                  ),
-                ),
-              ],
             ],
           ),
         ),
@@ -277,12 +267,6 @@ class PrayerWidgetMedium extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _getHijriDate() {
-    // This is a placeholder. In a real app, you would calculate the Hijri date
-    // or get it from the API response
-    return '12 Ramadan 1445';
   }
 
   Color _getThemeTextColor(String theme) {

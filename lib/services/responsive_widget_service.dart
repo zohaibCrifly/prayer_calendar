@@ -57,7 +57,7 @@ class ResponsiveWidgetService {
 
         // Configuration
         'showArabicNames': configProvider.showArabicNames,
-        'showHijriDate': configProvider.showHijriDate,
+
         'showCountdown': configProvider.showNextPrayerCountdown,
 
         // Arabic names

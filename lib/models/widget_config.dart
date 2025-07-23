@@ -54,7 +54,6 @@ extension WidgetSizeExtension on WidgetSize {
 class WidgetConfig {
   final WidgetSize size;
   final bool showArabicNames;
-  final bool showHijriDate;
   final bool showNextPrayerCountdown;
   final bool showCalendar;
   final String theme;
@@ -63,7 +62,6 @@ class WidgetConfig {
   const WidgetConfig({
     this.size = WidgetSize.medium,
     this.showArabicNames = true,
-    this.showHijriDate = true,
     this.showNextPrayerCountdown = true,
     this.showCalendar = false,
     this.theme = 'default',
@@ -78,7 +76,6 @@ class WidgetConfig {
   WidgetConfig copyWith({
     WidgetSize? size,
     bool? showArabicNames,
-    bool? showHijriDate,
     bool? showNextPrayerCountdown,
     bool? showCalendar,
     String? theme,
@@ -87,7 +84,6 @@ class WidgetConfig {
     return WidgetConfig(
       size: size ?? this.size,
       showArabicNames: showArabicNames ?? this.showArabicNames,
-      showHijriDate: showHijriDate ?? this.showHijriDate,
       showNextPrayerCountdown:
           showNextPrayerCountdown ?? this.showNextPrayerCountdown,
       showCalendar: showCalendar ?? this.showCalendar,
@@ -103,7 +99,6 @@ class WidgetConfig {
           runtimeType == other.runtimeType &&
           size == other.size &&
           showArabicNames == other.showArabicNames &&
-          showHijriDate == other.showHijriDate &&
           showNextPrayerCountdown == other.showNextPrayerCountdown &&
           showCalendar == other.showCalendar &&
           theme == other.theme &&
@@ -113,7 +108,6 @@ class WidgetConfig {
   int get hashCode =>
       size.hashCode ^
       showArabicNames.hashCode ^
-      showHijriDate.hashCode ^
       showNextPrayerCountdown.hashCode ^
       showCalendar.hashCode ^
       theme.hashCode ^

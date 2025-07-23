@@ -186,7 +186,6 @@ class PrayerTimesProvider extends ChangeNotifier {
         theme: 'default',
         showNextPrayerCountdown: true,
         showArabicNames: false,
-        showHijriDate: false,
       );
 
       await HomeWidgetService.updateWidget(

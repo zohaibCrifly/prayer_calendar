@@ -27,13 +27,13 @@ class PrayerTimes {
 
   /// Get all prayer times as a list of PrayerTime objects
   List<PrayerTime> get allPrayers => [
-        PrayerTime(name: 'Fajr', time: fajr, type: PrayerType.fajr),
-        PrayerTime(name: 'Sunrise', time: sunrise, type: PrayerType.sunrise),
-        PrayerTime(name: 'Dhuhr', time: dhuhr, type: PrayerType.dhuhr),
-        PrayerTime(name: 'Asr', time: asr, type: PrayerType.asr),
-        PrayerTime(name: 'Maghrib', time: maghrib, type: PrayerType.maghrib),
-        PrayerTime(name: 'Isha', time: isha, type: PrayerType.isha),
-      ];
+    PrayerTime(name: 'Fajr', time: fajr, type: PrayerType.fajr),
+    PrayerTime(name: 'Sunrise', time: sunrise, type: PrayerType.sunrise),
+    PrayerTime(name: 'Dhuhr', time: dhuhr, type: PrayerType.dhuhr),
+    PrayerTime(name: 'Asr', time: asr, type: PrayerType.asr),
+    PrayerTime(name: 'Maghrib', time: maghrib, type: PrayerType.maghrib),
+    PrayerTime(name: 'Isha', time: isha, type: PrayerType.isha),
+  ];
 
   /// Get the next prayer time
   PrayerTime? getNextPrayer() {
@@ -59,7 +59,8 @@ class PrayerTimes {
 
     for (final prayer in prayers) {
       final prayerDateTime = _parseTimeToDateTime(prayer.time);
-      if (prayerDateTime.isBefore(now) || prayerDateTime.isAtSameMomentAs(now)) {
+      if (prayerDateTime.isBefore(now) ||
+          prayerDateTime.isAtSameMomentAs(now)) {
         currentPrayer = prayer;
       } else {
         break;
@@ -74,7 +75,7 @@ class PrayerTimes {
     final parts = time.split(':');
     final hour = int.parse(parts[0]);
     final minute = int.parse(parts[1]);
-    
+
     return DateTime(now.year, now.month, now.day, hour, minute);
   }
 }
@@ -100,13 +101,13 @@ class PrayerTime {
   Duration getTimeRemaining() {
     final now = DateTime.now();
     final prayerDateTime = _parseTimeToDateTime(time);
-    
+
     if (prayerDateTime.isBefore(now)) {
       // Prayer has passed, calculate time until tomorrow
       final tomorrow = prayerDateTime.add(const Duration(days: 1));
       return tomorrow.difference(now);
     }
-    
+
     return prayerDateTime.difference(now);
   }
 
@@ -115,19 +116,12 @@ class PrayerTime {
     final parts = time.split(':');
     final hour = int.parse(parts[0]);
     final minute = int.parse(parts[1]);
-    
+
     return DateTime(now.year, now.month, now.day, hour, minute);
   }
 }
 
-enum PrayerType {
-  fajr,
-  sunrise,
-  dhuhr,
-  asr,
-  maghrib,
-  isha,
-}
+enum PrayerType { fajr, sunrise, dhuhr, asr, maghrib, isha }
 
 extension PrayerTypeExtension on PrayerType {
   String get displayName {

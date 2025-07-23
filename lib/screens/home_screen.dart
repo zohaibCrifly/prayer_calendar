@@ -240,12 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
               value: configProvider.showArabicNames,
               onChanged: (_) => configProvider.toggleArabicNames(),
             ),
-            SwitchListTile(
-              title: const Text('Show Hijri Date'),
-              subtitle: const Text('Display Islamic calendar date'),
-              value: configProvider.showHijriDate,
-              onChanged: (_) => configProvider.toggleHijriDate(),
-            ),
+
             SwitchListTile(
               title: const Text('Show Countdown'),
               subtitle: const Text('Display time remaining to next prayer'),

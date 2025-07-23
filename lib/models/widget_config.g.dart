@@ -11,7 +11,6 @@ WidgetConfig _$WidgetConfigFromJson(Map<String, dynamic> json) => WidgetConfig(
       $enumDecodeNullable(_$WidgetSizeEnumMap, json['size']) ??
       WidgetSize.medium,
   showArabicNames: json['showArabicNames'] as bool? ?? true,
-  showHijriDate: json['showHijriDate'] as bool? ?? true,
   showNextPrayerCountdown: json['showNextPrayerCountdown'] as bool? ?? true,
   showCalendar: json['showCalendar'] as bool? ?? false,
   theme: json['theme'] as String? ?? 'default',
@@ -22,7 +21,6 @@ Map<String, dynamic> _$WidgetConfigToJson(WidgetConfig instance) =>
     <String, dynamic>{
       'size': _$WidgetSizeEnumMap[instance.size]!,
       'showArabicNames': instance.showArabicNames,
-      'showHijriDate': instance.showHijriDate,
       'showNextPrayerCountdown': instance.showNextPrayerCountdown,
       'showCalendar': instance.showCalendar,
       'theme': instance.theme,

@@ -10,10 +10,10 @@ class WidgetConfigProvider extends ChangeNotifier {
   // Getters
   WidgetConfig get config => _config;
   bool get isLoading => _isLoading;
-  
+
   WidgetSize get currentSize => _config.size;
   bool get showArabicNames => _config.showArabicNames;
-  bool get showHijriDate => _config.showHijriDate;
+
   bool get showNextPrayerCountdown => _config.showNextPrayerCountdown;
   bool get showCalendar => _config.showCalendar;
   String get theme => _config.theme;
@@ -31,7 +31,7 @@ class WidgetConfigProvider extends ChangeNotifier {
 
       final prefs = await SharedPreferences.getInstance();
       final configJson = prefs.getString('widget_config');
-      
+
       if (configJson != null) {
         final configMap = json.decode(configJson) as Map<String, dynamic>;
         _config = WidgetConfig.fromJson(configMap);
@@ -73,13 +73,6 @@ class WidgetConfigProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Toggle Hijri date display
-  Future<void> toggleHijriDate() async {
-    _config = _config.copyWith(showHijriDate: !_config.showHijriDate);
-    await _saveConfig();
-    notifyListeners();
-  }
-
   /// Toggle next prayer countdown
   Future<void> toggleNextPrayerCountdown() async {
     _config = _config.copyWith(
@@ -107,7 +100,9 @@ class WidgetConfigProvider extends ChangeNotifier {
 
   /// Toggle notifications
   Future<void> toggleNotifications() async {
-    _config = _config.copyWith(enableNotifications: !_config.enableNotifications);
+    _config = _config.copyWith(
+      enableNotifications: !_config.enableNotifications,
+    );
     await _saveConfig();
     notifyListeners();
   }
@@ -130,13 +125,13 @@ class WidgetConfigProvider extends ChangeNotifier {
 
   /// Get available themes
   List<String> get availableThemes => [
-        'default',
-        'dark',
-        'light',
-        'islamic_green',
-        'golden',
-        'blue',
-      ];
+    'default',
+    'dark',
+    'light',
+    'islamic_green',
+    'golden',
+    'blue',
+  ];
 
   /// Get theme display name
   String getThemeDisplayName(String theme) {
@@ -173,14 +168,14 @@ class WidgetConfigProvider extends ChangeNotifier {
 
   /// Get configuration summary for debugging
   Map<String, dynamic> get configSummary => {
-        'size': _config.size.displayName,
-        'showArabicNames': _config.showArabicNames,
-        'showHijriDate': _config.showHijriDate,
-        'showNextPrayerCountdown': _config.showNextPrayerCountdown,
-        'showCalendar': _config.showCalendar,
-        'theme': _config.theme,
-        'enableNotifications': _config.enableNotifications,
-        'maxPrayersToShow': maxPrayersToShow,
-        'dimensions': '${widgetWidth}x${widgetHeight}',
-      };
+    'size': _config.size.displayName,
+    'showArabicNames': _config.showArabicNames,
+
+    'showNextPrayerCountdown': _config.showNextPrayerCountdown,
+    'showCalendar': _config.showCalendar,
+    'theme': _config.theme,
+    'enableNotifications': _config.enableNotifications,
+    'maxPrayersToShow': maxPrayersToShow,
+    'dimensions': '${widgetWidth}x${widgetHeight}',
+  };
 }

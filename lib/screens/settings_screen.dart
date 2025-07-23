@@ -107,13 +107,7 @@ class SettingsScreen extends StatelessWidget {
               value: configProvider.showArabicNames,
               onChanged: (_) => configProvider.toggleArabicNames(),
             ),
-            SwitchListTile(
-              secondary: const Icon(Icons.calendar_today),
-              title: const Text('Show Hijri Date'),
-              subtitle: const Text('Display Islamic calendar date'),
-              value: configProvider.showHijriDate,
-              onChanged: (_) => configProvider.toggleHijriDate(),
-            ),
+
             SwitchListTile(
               secondary: const Icon(Icons.timer),
               title: const Text('Show Countdown'),
