@@ -235,7 +235,7 @@ class PrayerWidgetLarge extends StatelessWidget {
 
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 1.85,
+        // childAspectRatio: 1.85,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
       ),

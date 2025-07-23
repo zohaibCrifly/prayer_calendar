@@ -3,8 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/prayer_times.dart';
 import '../models/location.dart';
+import '../models/widget_config.dart';
 import '../services/prayer_api_service.dart';
 import '../services/location_service.dart';
+import '../services/home_widget_service.dart';
 
 class PrayerTimesProvider extends ChangeNotifier {
   final PrayerApiService _apiService = PrayerApiService();
@@ -148,6 +150,7 @@ class PrayerTimesProvider extends ChangeNotifier {
       _lastUpdated = DateTime.now();
 
       await _saveData();
+      await _updateHomeWidget();
     } catch (e) {
       _setError('Failed to fetch prayer times: $e');
     } finally {
@@ -160,10 +163,45 @@ class PrayerTimesProvider extends ChangeNotifier {
     await _fetchPrayerTimes();
   }
 
+  /// Manually update home widget
+  Future<void> updateHomeWidget() async {
+    await _updateHomeWidget();
+  }
+
   /// Set location manually
   Future<void> setLocation(LocationData location) async {
     _currentLocation = location;
     await _fetchPrayerTimes();
+    await _updateHomeWidget();
+  }
+
+  /// Update home widget with current prayer data
+  Future<void> _updateHomeWidget() async {
+    if (_currentPrayerTimes == null || _currentLocation == null) return;
+
+    try {
+      // Create a basic widget config
+      final config = WidgetConfig(
+        size: WidgetSize.medium,
+        theme: 'default',
+        showNextPrayerCountdown: true,
+        showArabicNames: false,
+        showHijriDate: false,
+      );
+
+      await HomeWidgetService.updateWidget(
+        prayerTimes: _currentPrayerTimes!,
+        location: _currentLocation!,
+        config: config,
+        currentPrayer: currentPrayer,
+        nextPrayer: nextPrayer,
+        timeToNextPrayer: _timeToNextPrayer,
+      );
+
+      debugPrint('Home widget updated with prayer data');
+    } catch (e) {
+      debugPrint('Error updating home widget: $e');
+    }
   }
 
   /// Get prayer times for a specific date
@@ -207,6 +245,11 @@ class PrayerTimesProvider extends ChangeNotifier {
     if (nextPrayer != null) {
       _timeToNextPrayer = nextPrayer.getTimeRemaining();
       notifyListeners();
+
+      // Update widget every 5 minutes to keep countdown fresh
+      if (_timeToNextPrayer.inMinutes % 5 == 0) {
+        _updateHomeWidget();
+      }
     }
   }
 

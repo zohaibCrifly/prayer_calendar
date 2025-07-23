@@ -66,51 +66,34 @@ class HomeWidgetService {
     final now = DateTime.now();
 
     return {
-      // Basic info
-      'location': location.toString(),
-      'last_updated': now.millisecondsSinceEpoch.toString(),
-      'widget_size': config.size.name,
+      // Basic info (keys match Android widget expectations)
+      'location': '${location.city}, ${location.country}',
+      'lastUpdated': now.millisecondsSinceEpoch.toString(),
       'theme': config.theme,
-      'show_arabic_names': config.showArabicNames.toString(),
-      'show_hijri_date': config.showHijriDate.toString(),
-      'show_countdown': config.showNextPrayerCountdown.toString(),
 
-      // Prayer times
-      'fajr_time': prayerTimes.fajr,
-      'sunrise_time': prayerTimes.sunrise,
-      'dhuhr_time': prayerTimes.dhuhr,
-      'asr_time': prayerTimes.asr,
-      'maghrib_time': prayerTimes.maghrib,
-      'isha_time': prayerTimes.isha,
+      // Prayer times (keys match Android widget expectations)
+      'fajr': prayerTimes.fajr,
+      'sunrise': prayerTimes.sunrise,
+      'dhuhr': prayerTimes.dhuhr,
+      'asr': prayerTimes.asr,
+      'maghrib': prayerTimes.maghrib,
+      'isha': prayerTimes.isha,
 
-      // Arabic names
-      'fajr_arabic': PrayerType.fajr.arabicName,
-      'sunrise_arabic': PrayerType.sunrise.arabicName,
-      'dhuhr_arabic': PrayerType.dhuhr.arabicName,
-      'asr_arabic': PrayerType.asr.arabicName,
-      'maghrib_arabic': PrayerType.maghrib.arabicName,
-      'isha_arabic': PrayerType.isha.arabicName,
+      // Current prayer info (keys match Android widget expectations)
+      'currentPrayer': currentPrayer?.name ?? 'Fajr',
+      'currentPrayerTime': currentPrayer?.time ?? prayerTimes.fajr,
 
-      // Current prayer info
-      'current_prayer_name': currentPrayer?.name ?? '',
-      'current_prayer_arabic': currentPrayer?.type.arabicName ?? '',
-      'current_prayer_time': currentPrayer?.time ?? '',
-
-      // Next prayer info
-      'next_prayer_name': nextPrayer?.name ?? '',
-      'next_prayer_arabic': nextPrayer?.type.arabicName ?? '',
-      'next_prayer_time': nextPrayer?.time ?? '',
-      'time_to_next_prayer': timeToNextPrayer != null
+      // Next prayer info (keys match Android widget expectations)
+      'nextPrayer': nextPrayer?.name ?? 'Dhuhr',
+      'nextPrayerTime': nextPrayer?.time ?? prayerTimes.dhuhr,
+      'timeToNext': timeToNextPrayer != null
           ? _formatDuration(timeToNextPrayer)
-          : '',
+          : '2h 30m',
 
-      // Date info
-      'current_date': _formatDate(now),
-      'hijri_date': _getHijriDate(), // Placeholder
       // Widget configuration
-      'max_prayers_to_show': config.size.maxPrayersToShow.toString(),
-      'widget_width': config.size.width.toString(),
-      'widget_height': config.size.height.toString(),
+      'showArabicNames': config.showArabicNames.toString(),
+      'showHijriDate': config.showHijriDate.toString(),
+      'showCountdown': config.showNextPrayerCountdown.toString(),
     };
   }
 

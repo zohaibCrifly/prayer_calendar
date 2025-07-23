@@ -21,9 +21,9 @@ extension WidgetSizeExtension on WidgetSize {
       case WidgetSize.small:
         return 140.0;
       case WidgetSize.medium:
-        return 200.0;
+        return 380.0;
       case WidgetSize.large:
-        return 520.0;
+        return 650.0;
     }
   }
 
